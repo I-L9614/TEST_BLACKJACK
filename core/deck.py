@@ -5,7 +5,6 @@ SUIT = ["H","C","D","S"]
 
 def build_standard_deck() -> list[dict]:
     DECK = []
-    CARD = {}
     for k in CARD_VALUE:
         for j in SUIT:
             CARD = {'rank':k, 'suit':j}
@@ -41,7 +40,7 @@ def shuffle_by_suit(deck: list[dict], swaps: int = 5000) -> list[dict]:
                 else:
                     continue
             else:
-                continue    
+                j = random.randint(0, len(deck) - 1 ) 
     return deck
 
 print(shuffle_by_suit(build_standard_deck()))

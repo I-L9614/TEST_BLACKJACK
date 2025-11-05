@@ -47,24 +47,38 @@ def deal_two_each(deck: list[dict], player: dict, dealer: dict) -> None:
 
 
 def dealer_play(deck: list[dict], dealer: dict) -> bool:
-    if calculate_hand_value(dealer['hand']) > 17:
+    while calculate_hand_value(dealer['hand']) > 17:
         card = deck.pop(0)
         dealer.append(card)
-    return de
+    else:
+        return calculate_hand_value(dealer['hand']) <= 21  
 
 
 
-# def run_full_game(deck: list[dict], player: dict, dealer: dict) -> None:
-#     deal_two_each(deck,player,dealer)
-#     ask_player_action()
-#     if ask_player_action == 'H':
-#         for i in player,dealer:
-#             calculate_hand_value(i)
-#             if i > 21:
-#                 print("you loss")
-#                 break
-#             else:
-#                 continue
+def run_full_game(deck: list[dict], player: dict, dealer: dict) -> None:
+    deal_two_each(deck,player,dealer)
+    ask_player_action()
+    if ask_player_action == 'H':
+        player['hand'].append(deck.pop(0))
+        calculate_hand_value(player['hand'])
+        if calculate_hand_value(player['hand']) > 21:
+                print(f"your sum is: {calculate_hand_value(player['hand'])}.you loss")
+    else:
+        if ask_player_action == 'S':
+            calculate_hand_value(player['hand'])
+            if calculate_hand_value(player['hand']) > 21:
+                print(f"your sum is: {calculate_hand_value(player['hand'])}.you loss")
+            else:
+                if calculate_hand_value(player['hand']) == 21:
+                    print(f'your win: {calculate_hand_value(player['hand'])}')
+                else:
+                    if not dealer_play(deck,dealer['hand']):
+                        print("player is the winner")
+                    else:
+                        if calculate_hand_value(player['hand']) > calculate_hand_value(dealer['hand']):
+                            print(f'you won. your sum: {calculate_hand_value(player['hand'])}, computer sum: {calculate_hand_value(dealer['hand'])}')
+                    
+
 
     
     
